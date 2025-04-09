@@ -41,7 +41,7 @@ export default function Hero() {
               <div className="flex flex-col md:flex-row gap-3">
                 <div className="flex-grow">
                   <select
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                   >
@@ -57,7 +57,7 @@ export default function Hero() {
                   <input
                     type="text"
                     placeholder="¿Dónde lo necesitas?"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                     value={locationValue}
                     onChange={(e) => setLocationInput(e.target.value)}
                   />
