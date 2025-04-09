@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center mb-4">
               <Link href="/" className="flex items-center">
-                <img src={logoPath} alt="Servilink" className="h-10 bg-white p-1 rounded" />
+                <img src={logoPath} alt="Servilink" className="h-12 rounded" />
               </Link>
             </div>
             <p className="mb-4">
