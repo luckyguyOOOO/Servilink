@@ -11,7 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Menu, X, Share2, LogOut, User, Heart, Plus, Settings } from "lucide-react";
+import { Menu, X, LogOut, User, Heart, Plus, Settings } from "lucide-react";
+import logoPath from "@/assets/logo.svg";
 
 export default function Header() {
   const [location] = useLocation();
@@ -46,10 +47,7 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-2">
-                <Share2 className="h-6 w-6 text-white" />
-              </div>
-              <span className="text-xl font-bold text-blue-600 font-poppins">Servilink</span>
+              <img src={logoPath} alt="Servilink" className="h-10" />
             </Link>
           </div>
           
@@ -68,7 +66,7 @@ export default function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="rounded-full h-9 w-9 p-0">
                     <Avatar className="h-9 w-9">
-                      <AvatarImage src={user.avatar} alt={user.nombreCompleto || 'Usuario'} />
+                      <AvatarImage src={user.avatar || ''} alt={user.nombreCompleto || 'Usuario'} />
                       <AvatarFallback>{user.nombreCompleto ? user.nombreCompleto.substring(0, 2).toUpperCase() : 'US'}</AvatarFallback>
                     </Avatar>
                   </Button>
