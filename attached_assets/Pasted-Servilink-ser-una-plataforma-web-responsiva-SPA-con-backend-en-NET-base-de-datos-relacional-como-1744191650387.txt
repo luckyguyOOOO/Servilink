@@ -1,0 +1,202 @@
+Servilink será una plataforma web responsiva SPA con backend en .NET, base de datos relacional (como PostgreSQL o SQL Server) y foco en conectar personas que ofrecen servicios con personas que los necesitan. Debe ser escalable, mantenible, segura y optimizada para SEO.
+
+
+---
+
+Estructura general del proyecto
+
+Frontend (SPA)
+
+Tecnología sugerida: React, Next.js (ideal para SEO)
+
+Estilo visual: moderno, claro, intuitivo (diseñado en Figma)
+
+Responsive (adaptado a celulares, tablets y desktop)
+
+Idioma: español
+
+
+Backend
+
+.NET 8, siguiendo principios de Clean Architecture
+
+API RESTful bien documentada (Swagger)
+
+Organización por capas:
+
+Domain
+
+Application
+
+Infrastructure
+
+Web/API
+
+
+Inyección de dependencias
+
+Unit of Work + Repositorios
+
+
+Base de datos
+
+Relacional
+
+Gratis para desarrollo (PostgreSQL recomendado)
+
+Esquema versionado (por ejemplo, con EF Core migrations o Flyway)
+
+
+
+---
+
+Buenas prácticas de programación
+
+Arquitectura y diseño
+
+Clean Architecture
+
+Principios SOLID
+
+Principio DRY (Don't Repeat Yourself)
+
+Separación clara de responsabilidades (SRP)
+
+Uso de DTOs para comunicación externa
+
+Interfaces para desacoplar servicios
+
+
+Código limpio y mantenible
+
+Nombres descriptivos
+
+Código comentado solo cuando es necesario
+
+Evitar lógica compleja en controladores
+
+Métodos cortos y reutilizables
+
+
+Gestión de errores
+
+Middleware para manejo global de errores
+
+Respuestas con formato estándar (status + mensaje)
+
+Logueo de excepciones (Serilog o similar)
+
+
+
+---
+
+Seguridad
+
+Autenticación con JWT + Refresh Tokens
+
+Hasheo de contraseñas con BCrypt
+
+Validación exhaustiva de datos en entrada
+
+Protección contra ataques XSS y CSRF
+
+Rate limiting (por ejemplo para API pública)
+
+Roles y permisos (cliente, proveedor, admin)
+
+
+
+---
+
+Testing
+
+Pruebas unitarias
+
+Servicios, validadores, reglas de negocio
+
+Framework: xUnit o NUnit
+
+Mocking con Moq
+
+Cobertura mínima: 80%
+
+
+Pruebas de integración
+
+Repositorios
+
+Validación de endpoints
+
+Casos reales de uso
+
+
+Pruebas automatizadas de UI (opcional)
+
+Cypress o Playwright
+
+Flujo de búsqueda y contacto
+
+
+
+---
+
+SEO y accesibilidad
+
+URLs amigables y jerárquicas (Next.js SSR/SSG ideal)
+
+Uso de metaetiquetas (título, descripción, imagen)
+
+Sitemap.xml y robots.txt
+
+Etiquetas ARIA para accesibilidad
+
+Soporte para lectores de pantalla
+
+
+
+---
+
+Monitorización y métricas
+
+Logs estructurados con Serilog
+
+Métricas de rendimiento (AppInsights o Prometheus)
+
+Panel de estadísticas para admin:
+
+Visitas
+
+Servicios publicados
+
+Calificaciones promedio
+
+Cantidad de reportes
+
+
+
+
+---
+
+Datos para pruebas
+
+Usuarios predefinidos (cliente, proveedor, admin)
+
+Servicios simulados en distintas categorías y ciudades
+
+Comentarios de ejemplo
+
+Reportes y bloqueos de muestra
+
+
+
+---
+
+Despliegue y crecimiento
+
+Docker para facilitar despliegue en servidores
+
+CI/CD (GitHub Actions o similar)
+
+Escalabilidad horizontal (API sin estado)
+
+Cloud opcional: Azure o Railway
