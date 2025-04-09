@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Menu, X, Zap, LogOut, User, Heart, Plus, Settings } from "lucide-react";
+import { Menu, X, Share2, LogOut, User, Heart, Plus, Settings } from "lucide-react";
 
 export default function Header() {
   const [location] = useLocation();
@@ -46,19 +46,19 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center mr-2">
-                <Zap className="h-6 w-6 text-white" />
+              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-2">
+                <Share2 className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-bold text-primary-600 font-poppins">Servilink</span>
+              <span className="text-xl font-bold text-blue-600 font-poppins">Servilink</span>
             </Link>
           </div>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <Link href="/" className={`text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium ${location === '/' ? 'text-primary-600' : ''}`}>Inicio</Link>
-            <Link href="/servicios" className={`text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium ${location === '/servicios' ? 'text-primary-600' : ''}`}>Servicios</Link>
-            <Link href="/#como-funciona" className="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium">Cómo funciona</Link>
-            <Link href="/#planes" className="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium">Planes</Link>
+            <Link href="/" className={`text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium ${location === '/' ? 'text-blue-600' : ''}`}>Inicio</Link>
+            <Link href="/servicios" className={`text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium ${location === '/servicios' ? 'text-blue-600' : ''}`}>Servicios</Link>
+            <Link href="/#como-funciona" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Cómo funciona</Link>
+            <Link href="/#planes" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Planes</Link>
           </nav>
           
           {/* User Menu */}
@@ -68,8 +68,8 @@ export default function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="rounded-full h-9 w-9 p-0">
                     <Avatar className="h-9 w-9">
-                      <AvatarImage src={user.avatar} alt={user.nombreCompleto} />
-                      <AvatarFallback>{user.nombreCompleto.substring(0, 2).toUpperCase()}</AvatarFallback>
+                      <AvatarImage src={user.avatar} alt={user.nombreCompleto || 'Usuario'} />
+                      <AvatarFallback>{user.nombreCompleto ? user.nombreCompleto.substring(0, 2).toUpperCase() : 'US'}</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
@@ -88,7 +88,7 @@ export default function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/perfil" className="flex cursor-pointer items-center">
+                    <Link href="/perfil?tab=favoritos" className="flex cursor-pointer items-center">
                       <Heart className="mr-2 h-4 w-4" />
                       <span>Favoritos</span>
                     </Link>
@@ -143,21 +143,21 @@ export default function Header() {
         {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="md:hidden pt-2 pb-4 space-y-1">
-            <Link href="/" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary-600">Inicio</Link>
-            <Link href="/servicios" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary-600">Servicios</Link>
-            <Link href="/#como-funciona" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary-600">Cómo funciona</Link>
-            <Link href="/#planes" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary-600">Planes</Link>
+            <Link href="/" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600">Inicio</Link>
+            <Link href="/servicios" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600">Servicios</Link>
+            <Link href="/#como-funciona" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600">Cómo funciona</Link>
+            <Link href="/#planes" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600">Planes</Link>
             
             {user ? (
               <>
                 <div className="border-t border-gray-200 my-2"></div>
-                <Link href="/perfil" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary-600">Mi Perfil</Link>
-                <Link href="/perfil" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary-600">Favoritos</Link>
+                <Link href="/perfil" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600">Mi Perfil</Link>
+                <Link href="/perfil?tab=favoritos" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600">Favoritos</Link>
                 {user.rol === "Proveedor" && (
-                  <Link href="/agregar-servicio" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary-600">Publicar Servicio</Link>
+                  <Link href="/agregar-servicio" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600">Publicar Servicio</Link>
                 )}
                 {user.rol === "Admin" && (
-                  <Link href="/admin" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary-600">Panel de Administración</Link>
+                  <Link href="/admin" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600">Panel de Administración</Link>
                 )}
                 <button 
                   onClick={handleLogout}
@@ -169,7 +169,7 @@ export default function Header() {
             ) : (
               <div className="border-t border-gray-200 pt-2 flex space-x-2 px-3">
                 <Link href="/auth" className="block w-1/2 text-center px-3 py-2 text-base font-medium text-gray-700 bg-gray-100 rounded-lg">Ingresar</Link>
-                <Link href="/auth" className="block w-1/2 text-center px-3 py-2 text-base font-medium text-white bg-primary-600 rounded-lg">Registrarse</Link>
+                <Link href="/auth" className="block w-1/2 text-center px-3 py-2 text-base font-medium text-white bg-blue-600 rounded-lg">Registrarse</Link>
               </div>
             )}
           </div>
