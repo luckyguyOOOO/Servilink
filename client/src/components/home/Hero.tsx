@@ -7,10 +7,10 @@ import { useQuery } from "@tanstack/react-query";
 export default function Hero() {
   const [, setLocation] = useLocation();
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [location, setLocationInput] = useState("");
+  const [locationValue, setLocationInput] = useState("");
 
   // Fetch categories
-  const { data: categories } = useQuery({
+  const { data: categories = [] } = useQuery<any[]>({
     queryKey: ["/api/categorias"],
   });
 
@@ -19,20 +19,20 @@ export default function Hero() {
     
     const params = new URLSearchParams();
     if (selectedCategory) params.append("categoria", selectedCategory);
-    if (location) params.append("ubicacion", location);
+    if (locationValue) params.append("ubicacion", locationValue);
     
     setLocation(`/servicios?${params.toString()}`);
   };
 
   return (
-    <section className="bg-gradient-to-br from-primary-600 to-primary-800 text-white">
+    <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-poppins mb-4">
               Conecta con los mejores profesionales
             </h1>
-            <p className="text-lg md:text-xl text-primary-100 mb-8">
+            <p className="text-lg md:text-xl text-blue-100 mb-8">
               Encuentra especialistas para cualquier servicio que necesites, compara y contacta de forma segura.
             </p>
 
@@ -41,12 +41,12 @@ export default function Hero() {
               <div className="flex flex-col md:flex-row gap-3">
                 <div className="flex-grow">
                   <select
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                   >
                     <option value="">¿Qué servicio buscas?</option>
-                    {categories?.map((category: any) => (
+                    {Array.isArray(categories) && categories.map((category: any) => (
                       <option key={category.id} value={category.id}>
                         {category.name}
                       </option>
@@ -57,19 +57,19 @@ export default function Hero() {
                   <input
                     type="text"
                     placeholder="¿Dónde lo necesitas?"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                    value={location}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={locationValue}
                     onChange={(e) => setLocationInput(e.target.value)}
                   />
                 </div>
-                <Button type="submit" className="bg-secondary-500 hover:bg-secondary-600 text-white px-6 py-3 h-auto">
+                <Button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 h-auto">
                   <Search className="h-5 w-5 mr-2" />
                   Buscar
                 </Button>
               </div>
             </form>
 
-            <div className="mt-4 text-sm text-primary-200">
+            <div className="mt-4 text-sm text-blue-200">
               <p>
                 Los servicios más buscados:{" "}
                 <a href="/servicios?search=Limpieza del hogar" className="underline hover:text-white">
@@ -88,13 +88,22 @@ export default function Hero() {
           </div>
 
           <div className="hidden md:block">
-            <img
-              src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600&q=80"
-              alt="Profesionales brindando servicios"
-              className="rounded-lg shadow-xl"
-              width="600"
-              height="400"
-            />
+            <div className="bg-white p-2 rounded-lg shadow-xl">
+              <svg className="w-full h-auto" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                <rect width="600" height="400" fill="#f8fafc" />
+                <circle cx="300" cy="200" r="150" fill="#eff6ff" />
+                <path d="M200,150 Q300,50 400,150 T500,250 T300,350 T100,250 T200,150" fill="#dbeafe" />
+                <circle cx="250" cy="180" r="50" fill="#93c5fd" />
+                <circle cx="360" cy="220" r="70" fill="#60a5fa" />
+                <path d="M150,320 C200,290 400,290 450,320" stroke="#2563eb" strokeWidth="6" fill="none" />
+                <path d="M280,200 L320,200 L320,240 L280,240 Z" fill="#1d4ed8" />
+                <path d="M220,160 L260,160 L260,200 L220,200 Z" fill="#1e40af" />
+                <path d="M330,230 L370,230 L370,270 L330,270 Z" fill="#1e3a8a" />
+                <circle cx="240" cy="180" r="8" fill="#f97316" />
+                <circle cx="350" cy="250" r="8" fill="#f97316" />
+                <path d="M100,300 L150,280 L200,285 L250,270 L300,280 L350,270 L400,290 L450,270 L500,290" stroke="#bfdbfe" strokeWidth="4" fill="none" />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
