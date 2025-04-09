@@ -1,0 +1,14 @@
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Text "Servi" in blue -->
+  <text x="10" y="35" font-family="Arial, sans-serif" font-weight="bold" font-size="28" fill="#2563EB">Servi</text>
+  <!-- Text "Link" in orange -->
+  <text x="90" y="35" font-family="Arial, sans-serif" font-weight="bold" font-size="28" fill="#F59E0B">Link</text>
+  <!-- Connection icon between the words -->
+  <path d="M80 20C80 20 85 15 90 20" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+  <path d="M80 30C80 30 85 35 90 30" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+  <!-- Dots representing connection points -->
+  <circle cx="80" cy="20" r="2" fill="#2563EB"/>
+  <circle cx="90" cy="20" r="2" fill="#2563EB"/>
+  <circle cx="80" cy="30" r="2" fill="#F59E0B"/>
+  <circle cx="90" cy="30" r="2" fill="#F59E0B"/>
+</svg>
