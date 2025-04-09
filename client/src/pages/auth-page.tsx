@@ -73,27 +73,27 @@ export default function AuthPage() {
       </div>
 
       {/* Right column - Hero */}
-      <div className="hidden md:flex flex-col justify-center p-8 bg-gradient-to-br from-primary-600 to-primary-800 text-white">
+      <div className="hidden md:flex flex-col justify-center p-8 bg-gradient-to-br from-blue-600 to-blue-800 text-white">
         <div className="max-w-md mx-auto">
           <div className="mb-6 flex items-center">
             <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center mr-3">
-              <Zap className="h-6 w-6 text-primary-600" />
+              <Zap className="h-6 w-6 text-blue-600" />
             </div>
             <h1 className="text-2xl font-bold font-poppins">Servilink</h1>
           </div>
           <h2 className="text-3xl font-bold mb-4 font-poppins">La forma más fácil de encontrar servicios profesionales</h2>
-          <p className="text-primary-100 mb-6">
+          <p className="text-blue-100 mb-6">
             Conectamos a personas que necesitan servicios con profesionales calificados. 
             Busca, contacta y califica – todo en un solo lugar.
           </p>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white/10 p-4 rounded-lg">
               <h3 className="font-semibold mb-2">Para clientes</h3>
-              <p className="text-sm text-primary-100">Encuentra profesionales confiables para cualquier servicio que necesites.</p>
+              <p className="text-sm text-blue-100">Encuentra profesionales confiables para cualquier servicio que necesites.</p>
             </div>
             <div className="bg-white/10 p-4 rounded-lg">
               <h3 className="font-semibold mb-2">Para proveedores</h3>
-              <p className="text-sm text-primary-100">Muestra tus servicios y conecta con nuevos clientes cada día.</p>
+              <p className="text-sm text-blue-100">Muestra tus servicios y conecta con nuevos clientes cada día.</p>
             </div>
           </div>
         </div>
@@ -229,7 +229,7 @@ function RegisterForm({ isPending, onSubmit }: RegisterFormProps) {
               <FormLabel>Tipo de cuenta</FormLabel>
               <FormControl>
                 <select 
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" 
+                  className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" 
                   {...field}
                 >
                   <option value="Cliente">Cliente</option>
@@ -248,7 +248,7 @@ function RegisterForm({ isPending, onSubmit }: RegisterFormProps) {
               <FormItem>
                 <FormLabel>País</FormLabel>
                 <FormControl>
-                  <Input placeholder="España" {...field} />
+                  <Input placeholder="España" value={field.value || ''} onChange={field.onChange} name={field.name} ref={field.ref} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -261,7 +261,7 @@ function RegisterForm({ isPending, onSubmit }: RegisterFormProps) {
               <FormItem>
                 <FormLabel>Ciudad</FormLabel>
                 <FormControl>
-                  <Input placeholder="Madrid" {...field} />
+                  <Input placeholder="Madrid" value={field.value || ''} onChange={field.onChange} name={field.name} ref={field.ref} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -275,7 +275,7 @@ function RegisterForm({ isPending, onSubmit }: RegisterFormProps) {
             <FormItem>
               <FormLabel>Teléfono</FormLabel>
               <FormControl>
-                <Input placeholder="612345678" {...field} />
+                <Input placeholder="612345678" value={field.value || ''} onChange={field.onChange} name={field.name} ref={field.ref} />
               </FormControl>
               <FormMessage />
             </FormItem>
