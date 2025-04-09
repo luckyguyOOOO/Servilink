@@ -15,6 +15,54 @@ import { useAuth } from "@/hooks/use-auth";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
+interface Comentario {
+  id: number;
+  servicioId: number;
+  usuarioId: number;
+  texto: string;
+  puntuacion: number;
+  fecha: string;
+  usuario?: {
+    id: number;
+    nombreCompleto: string;
+    avatar?: string;
+  };
+}
+
+interface Servicio {
+  id: number;
+  usuarioId: number;
+  titulo: string;
+  descripcion: string;
+  categoria: string;
+  subcategoria?: string;
+  precioEstimado: number;
+  ubicacion: string;
+  horario?: string;
+  puntuacion: number;
+  disponible: boolean;
+  verificado: boolean;
+  destacado: boolean;
+  fechaPublicacion: string;
+  imagenes?: string[];
+  comentarios?: Comentario[];
+  usuario?: {
+    id: number;
+    nombreCompleto: string;
+    avatar?: string;
+    ciudad?: string;
+    pais?: string;
+  };
+}
+
+interface Favorito {
+  id: number;
+  usuarioId: number;
+  servicioId: number;
+  fecha: string;
+  servicio?: Servicio;
+}
+
 export default function ServiceDetailPage() {
   const { id } = useParams();
   const { user } = useAuth();
@@ -22,7 +70,7 @@ export default function ServiceDetailPage() {
   const [, setLocation] = useLocation();
 
   // Fetch service details
-  const { data: service, isLoading, error } = useQuery({
+  const { data: service, isLoading, error } = useQuery<Servicio>({
     queryKey: [`/api/servicios/${id}`],
   });
 
@@ -31,16 +79,17 @@ export default function ServiceDetailPage() {
   const [reportReason, setReportReason] = useState("");
 
   // Check if service is in favorites
-  const { data: favorites } = useQuery({
+  const { data: favorites } = useQuery<Favorito[]>({
     queryKey: ["/api/favoritos"],
     enabled: !!user, // Only run if user is logged in
   });
 
-  const isFavorite = favorites?.some((fav: any) => fav.servicioId === parseInt(id));
+  const isFavorite = favorites?.some((fav) => fav.servicioId === parseInt(id || "0"));
 
   // Add to favorites mutation
   const addToFavoritesMutation = useMutation({
     mutationFn: async () => {
+      if (!id) return null;
       await apiRequest("POST", "/api/favoritos", { servicioId: parseInt(id) });
     },
     onSuccess: () => {
@@ -62,6 +111,7 @@ export default function ServiceDetailPage() {
   // Remove from favorites mutation
   const removeFromFavoritesMutation = useMutation({
     mutationFn: async () => {
+      if (!id) return null;
       await apiRequest("DELETE", `/api/favoritos/${id}`);
     },
     onSuccess: () => {
@@ -83,6 +133,7 @@ export default function ServiceDetailPage() {
   // Report service mutation
   const reportServiceMutation = useMutation({
     mutationFn: async () => {
+      if (!id) return null;
       await apiRequest("POST", "/api/reportes", { 
         servicioId: parseInt(id),
         motivo: reportReason
@@ -121,6 +172,13 @@ export default function ServiceDetailPage() {
 
   // Handle report submit
   const handleReportSubmit = () => {
+    if (!user) {
+      // Cerrar el diálogo y redirigir a la página de autenticación
+      setReportDialogOpen(false);
+      setLocation("/auth");
+      return;
+    }
+    
     if (!reportReason.trim()) {
       toast({
         title: "Error",
@@ -197,17 +255,30 @@ export default function ServiceDetailPage() {
                   variant="outline" 
                   size="icon" 
                   className="bg-white hover:bg-gray-100 rounded-full"
-                  onClick={() => navigator.share({
-                    title: service.titulo,
-                    text: service.descripcion,
-                    url: window.location.href,
-                  }).catch(() => {
-                    navigator.clipboard.writeText(window.location.href);
-                    toast({
-                      title: "Enlace copiado",
-                      description: "El enlace ha sido copiado al portapapeles",
-                    });
-                  })}
+                  onClick={() => {
+                    if (navigator.share) {
+                      navigator.share({
+                        title: service.titulo,
+                        text: service.descripcion,
+                        url: window.location.href,
+                      }).catch((error) => {
+                        // Solo mostrar el mensaje de error cuando no es una cancelación
+                        if (error.name !== 'AbortError') {
+                          navigator.clipboard.writeText(window.location.href);
+                          toast({
+                            title: "Enlace copiado",
+                            description: "El enlace ha sido copiado al portapapeles",
+                          });
+                        }
+                      });
+                    } else {
+                      navigator.clipboard.writeText(window.location.href);
+                      toast({
+                        title: "Enlace copiado",
+                        description: "El enlace ha sido copiado al portapapeles",
+                      });
+                    }
+                  }}
                 >
                   <Share2 className="h-5 w-5 text-gray-600" />
                 </Button>
